@@ -46,6 +46,9 @@ public class HotelModel {
     
    
 
+
+    public HotelModel() {
+    }
     public HotelModel(Long id, String name, String short_description, String long_description, String image_link,
             String location, String experience, String pool,Long price) {
         this.id = id;
@@ -60,8 +63,6 @@ public class HotelModel {
 
     }
 
-    public HotelModel() {
-    }
 
    
 

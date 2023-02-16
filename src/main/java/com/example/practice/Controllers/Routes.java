@@ -2,6 +2,8 @@ package com.example.practice.Controllers;
 
 import com.example.practice.Models.HotelModel;
 import com.example.practice.Repositories.HotelRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+
+
 
 
 
@@ -33,6 +38,26 @@ public class Routes {
     public ResponseEntity get_hotel_by_id (@RequestParam long id){
         return new ResponseEntity<Object>(hotel.findById(id), HttpStatus.OK);    
     }
+
+    @GetMapping("/get_hotel_by_location")
+    public ResponseEntity get_hotel_by_location (@RequestParam String location)
+    {
+
+        
+        List<HotelModel> data = hotel.findAllByLocation(location);
+        return new ResponseEntity<Object>(data,HttpStatus.OK) ;  
+    };
+
+    @PostMapping("/get_hotel")
+    public ResponseEntity get_hotel (@RequestBody HotelModel hotelmodel)
+    {
+
+        List<HotelModel> data = hotel.findAllByLocation(hotelmodel.getLocation());
+        List<HotelModel> query =  data.stream().filter(i -> i.getPool().equals(hotelmodel.getPool())).filter(i -> i.getExperience().equals(hotelmodel.getExperience())).collect(Collectors.toList());
+        return new ResponseEntity<Object>(query,HttpStatus.OK) ;  
+    };
+    
+    
     
 
     @PostMapping("/post_hotels")
