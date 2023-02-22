@@ -14,13 +14,13 @@ import lombok.Setter;
 
 
 
-@Table(name = "Hotels")
+@Table(name = "Products")
 @Entity
 @Data
 @Getter
 @Setter
  
-public class HotelModel {
+public class ProductModel {
 
     
 
@@ -38,27 +38,20 @@ public class HotelModel {
 
     String long_description;
     String image_link;
-    String location;
-    String experience;
-    String pool;
     Long price;
     
     
    
 
 
-    public HotelModel() {
+    public ProductModel() {
     }
-    public HotelModel(Long id, String name, String short_description, String long_description, String image_link,
-            String location, String experience, String pool,Long price) {
+    public ProductModel(Long id, String name, String short_description, String long_description, String image_link,Long price) {
         this.id = id;
         this.name = name;
         this.short_description = short_description;
         this.long_description = long_description;
         this.image_link = image_link;
-        this.location = location;
-        this.experience = experience;
-        this.pool = pool;
         this.price = price;
 
     }

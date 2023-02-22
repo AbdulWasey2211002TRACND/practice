@@ -1,7 +1,7 @@
 package com.example.practice.Controllers;
 
-import com.example.practice.Models.HotelModel;
-import com.example.practice.Repositories.HotelRepository;
+import com.example.practice.Models.ProductModel;
+import com.example.practice.Repositories.ProductRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,55 +22,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @CrossOrigin
-@RequestMapping("hotels")
+@RequestMapping("products")
 @RestController
 public class Routes {
 
     @Autowired
-    private HotelRepository hotel;
+    private ProductRepository product;
 
-    @GetMapping("/get_hotels")
+    @GetMapping("/get_products")
     public ResponseEntity get_hotels (){
-        return new ResponseEntity<Object>(hotel.findAll(), HttpStatus.OK);    
+        return new ResponseEntity<Object>(product.findAll(), HttpStatus.OK);    
     }
     
-    @GetMapping("/get_hotel_by_id")
+    @GetMapping("/get_product_by_id")
     public ResponseEntity get_hotel_by_id (@RequestParam long id){
-        return new ResponseEntity<Object>(hotel.findById(id), HttpStatus.OK);    
+        return new ResponseEntity<Object>(product.findById(id), HttpStatus.OK);    
     }
-
-    @GetMapping("/get_hotel_by_location")
-    public ResponseEntity get_hotel_by_location (@RequestParam String location)
-    {
-
-        
-        List<HotelModel> data = hotel.findAllByLocation(location);
-        return new ResponseEntity<Object>(data,HttpStatus.OK) ;  
-    };
-
-    @PostMapping("/get_hotel")
-    public ResponseEntity get_hotel (@RequestBody HotelModel hotelmodel)
-    {
-
-        List<HotelModel> data = hotel.findAllByLocation(hotelmodel.getLocation());
-        List<HotelModel> query =  data.stream().filter(i -> i.getPool().equals(hotelmodel.getPool())).filter(i -> i.getExperience().equals(hotelmodel.getExperience())).collect(Collectors.toList());
-        return new ResponseEntity<Object>(query,HttpStatus.OK) ;  
-    };
-    
-    
     
 
-    @PostMapping("/post_hotels")
-    public ResponseEntity post_hotels (@RequestBody HotelModel requesthotel){
+    @PostMapping("/post_products")
+    public ResponseEntity post_hotels (@RequestBody ProductModel requesthotel){
 
-        hotel.save(requesthotel);
-        return new ResponseEntity<Object>("Hotel Uploaded Successfully" ,HttpStatus.OK);    
+        product.save(requesthotel);
+        return new ResponseEntity<Object>("Product Uploaded Successfully" ,HttpStatus.OK);    
     }
 
-    @DeleteMapping("/delete_hotel")
-    public ResponseEntity post_hotels (@RequestParam long id){
-
-        hotel.deleteById(id);;
-        return new ResponseEntity<Object>("Hotel Deleted Successfully" ,HttpStatus.OK);    
-    }
+   
 }
