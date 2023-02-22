@@ -36,7 +36,7 @@ public class Routes {
     
     @GetMapping("/get_product_by_id")
     public ResponseEntity get_hotel_by_id (@RequestParam long id){
-        return new ResponseEntity<Object>(product.findById(id), HttpStatus.OK);    
+        return new ResponseEntity<Object>(product.findAllById(id), HttpStatus.OK);    
     }
     
 

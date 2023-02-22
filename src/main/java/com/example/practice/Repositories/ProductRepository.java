@@ -13,5 +13,6 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface ProductRepository extends JpaRepository<ProductModel,Long> {
 
+            List<ProductModel> findAllById(Long id);
 
 }
