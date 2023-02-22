@@ -2,20 +2,14 @@ package com.example.practice;
 
 import static org.mockito.Mockito.*;
 
-import static org.mockito.ArgumentMatchers.any;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.springframework.test.web.servlet.MockMvc;
+import static org.junit.Assert.assertNotEquals;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import com.example.practice.Controllers.Routes;
 import com.example.practice.Models.*;
 import com.example.practice.Repositories.ProductRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest
@@ -60,39 +53,69 @@ class PracticeApplicationTests {
 
     }
 
-    // @Test
-    // public void testGetHotelByLocation() {
-    // String location = "Location A";
-    // List<ProductModel> hotels = new ArrayList<>();
-    // hotels.add(new ProductModel(1L, "Hotel A", "Short description A", "Long
-    // description A",
-    // "https://example.com/image-a.jpg", "Location A", "Experience A", "Pool A",
-    // 100L));
-    // hotels.add(new ProductModel(2L, "Hotel B", "Short description B", "Long
-    // description B",
-    // "https://example.com/image-b.jpg", "Location B", "Experience B", "Pool B",
-    // 200L));
-    // when(hotelRepository.findAllByLocation(location)).thenReturn(hotels);
+    @Test
+    public void testGetProductById() {
+        ProductModel myproduct = new ProductModel(1L, "Shirt", "Good one", "Very Good Shirt", "Imagelink", 100L);
+        when(product.findById(1L)).thenReturn(Optional.of(myproduct));
 
-    // ResponseEntity response = routesController.get_hotel_by_location(location);
+        ResponseEntity<Object> response = routesController.get_product_by_id(1L);
 
-    // assertEquals(HttpStatus.OK, response.getStatusCode());
-    // assertEquals(hotels, response.getBody());
-    // }
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 
-    // @Test
-    // public void testGetHotel() {
-    // ProductModel hotel = new ProductModel(2L, "Hotel B", "Short description B",
-    // "Long description B",
-    // "https://example.com/image-b.jpg", "Location B", "Experience B", "Pool B",
-    // 200L);
-    // List<ProductModel> hotels = new ArrayList<>();
-    // hotels.add(hotel);
-    // when(hotelRepository.findAllByLocation(hotel.getLocation())).thenReturn(hotels);
+    @Test
+    void testConstructorAndGetters() {
+        Long id = 1L;
+        String name = "Shirt";
+        String short_description = "Good one";
+        String long_description = "Very Good Shirt";
+        String image_link = "Imagelink";
+        Long price = 100L;
 
-    // ResponseEntity response = routesController.get_hotel(hotel);
+        ProductModel product = new ProductModel(id, name, short_description, long_description, image_link, price);
 
-    // assertEquals(HttpStatus.OK, response.getStatusCode());
-    // assertEquals(hotels, response.getBody());
-    // }
+        assertEquals(id, product.getId());
+        assertEquals(name, product.getName());
+        assertEquals(short_description, product.getShort_description());
+        assertEquals(long_description, product.getLong_description());
+        assertEquals(image_link, product.getImage_link());
+        assertEquals(price, product.getPrice());
+    }
+
+    @Test
+    void testSetters() {
+        ProductModel product = new ProductModel();
+
+        Long id = 1L;
+        String name = "Shirt";
+        String short_description = "Good one";
+        String long_description = "Very Good Shirt";
+        String image_link = "Imagelink";
+        Long price = 100L;
+
+        product.setId(id);
+        product.setName(name);
+        product.setShort_description(short_description);
+        product.setLong_description(long_description);
+        product.setImage_link(image_link);
+        product.setPrice(price);
+
+        assertEquals(id, product.getId());
+        assertEquals(name, product.getName());
+        assertEquals(short_description, product.getShort_description());
+        assertEquals(long_description, product.getLong_description());
+        assertEquals(image_link, product.getImage_link());
+        assertEquals(price, product.getPrice());
+    }
+
+    @Test
+    void testEquals() {
+        ProductModel product1 = new ProductModel(1L, "Shirt", "Good one", "Very Good Shirt", "Imagelink", 100L);
+        ProductModel product2 = new ProductModel(1L, "Shirt", "Good one", "Very Good Shirt", "Imagelink", 100L);
+        ProductModel product3 = new ProductModel(2L, "Pants", "Good one", "Very Good Pants", "Imagelink", 200L);
+
+        assertEquals(product1, product2);
+        assertNotEquals(product1, product3);
+    }
+
 }
