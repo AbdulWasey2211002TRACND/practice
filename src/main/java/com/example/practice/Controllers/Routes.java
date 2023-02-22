@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
-
-
 @CrossOrigin
 @RequestMapping("products")
 @RestController
@@ -30,22 +25,20 @@ public class Routes {
     private ProductRepository product;
 
     @GetMapping("/get_products")
-    public ResponseEntity get_hotels (){
-        return new ResponseEntity<Object>(product.findAll(), HttpStatus.OK);    
+    public ResponseEntity get_product() {
+        return new ResponseEntity<Object>(product.findAll(), HttpStatus.OK);
     }
-    
+
     @GetMapping("/get_product_by_id")
-    public ResponseEntity get_hotel_by_id (@RequestParam long id){
-        return new ResponseEntity<Object>(product.findAllById(id), HttpStatus.OK);    
+    public ResponseEntity get_product_by_id(@RequestParam long id) {
+        return new ResponseEntity<Object>(product.findAllById(id), HttpStatus.OK);
     }
-    
 
     @PostMapping("/post_products")
-    public ResponseEntity post_hotels (@RequestBody ProductModel requesthotel){
+    public ResponseEntity post_products(@RequestBody ProductModel requesthotel) {
 
         product.save(requesthotel);
-        return new ResponseEntity<Object>("Product Uploaded Successfully" ,HttpStatus.OK);    
+        return new ResponseEntity<Object>("Product Uploaded Successfully", HttpStatus.OK);
     }
 
-   
 }

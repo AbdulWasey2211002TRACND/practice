@@ -10,19 +10,13 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-
-
-
-
 @Table(name = "Products")
 @Entity
 @Data
 @Getter
 @Setter
- 
-public class ProductModel {
 
-    
+public class ProductModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,14 +33,12 @@ public class ProductModel {
     String long_description;
     String image_link;
     Long price;
-    
-    
-   
-
 
     public ProductModel() {
     }
-    public ProductModel(Long id, String name, String short_description, String long_description, String image_link,Long price) {
+
+    public ProductModel(Long id, String name, String short_description, String long_description, String image_link,
+            Long price) {
         this.id = id;
         this.name = name;
         this.short_description = short_description;
@@ -56,8 +48,4 @@ public class ProductModel {
 
     }
 
-
-   
-
-    
 }
