@@ -64,6 +64,25 @@ class PracticeApplicationTests {
     }
 
     @Test
+    public void testNoArgsConstructor() {
+        ProductModel product = new ProductModel();
+
+        product.setId(1L);
+        product.setName("Shirt");
+        product.setShort_description("Short description");
+        product.setLong_description("Long description");
+        product.setImage_link("imagelink");
+        product.setPrice(100L);
+
+        assertEquals(1L, product.getId());
+        assertEquals("Shirt", product.getName());
+        assertEquals("Short description", product.getShort_description());
+        assertEquals("Long description", product.getLong_description());
+        assertEquals("imagelink", product.getImage_link());
+        assertEquals(100L, product.getPrice());
+    }
+
+    @Test
     void testConstructorAndGetters() {
         Long id = 1L;
         String name = "Shirt";
